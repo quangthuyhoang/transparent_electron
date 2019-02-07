@@ -11,8 +11,15 @@ export const devMenuTemplate = {
       }
     },
     {
+      label: "Maximize Window",
+      accelerator: "Alt+CmdOrCtrl+O",
+      click: () => {
+        console.log("maximize window in node");
+      }
+    },
+    {
       label: "Transparent",
-      accelerator: "Alt+CmdOrCtrl+T",
+      accelerator: "Alt+mdOrCtrl+T",
       click: () => {
         console.log("hey")
       }

@@ -35,16 +35,23 @@ app.on("ready", () => {
 
   const mainWindow = createWindow("main", {
     width: 1000,
-    height: 600
+    height: 600,
+    transparent: true,
   });
 
   const childWindow = createWindow("child", {
     width: 800,
     height: 400,
-    transparent: true
+    parent: mainWindow,
+    modal: true
   })
 
-  // childWindow.setAlwaysOnTop(true)
+  mainWindow.setIgnoreMouseEvents(true)
+  mainWindow.setAlwaysOnTop(true, "floating");
+  mainWindow.setVisibleOnAllWorkspaces(true);
+  mainWindow.setFullScreenable(false);
+
+  childWindow.setAlwaysOnTop(true)
 
   mainWindow.loadURL(
     url.format({
@@ -61,12 +68,16 @@ app.on("ready", () => {
       slashes: true
     })
   )
-
+  if (mainWindow.isMaximized != false) {
+    mainWindow.maximize();
+  } 
   if (env.name === "development") {
-    mainWindow.openDevTools();
+    // mainWindow.openDevTools();
   }
 });
 
 app.on("window-all-closed", () => {
   app.quit();
 });
+
+// app.dock.hide();
