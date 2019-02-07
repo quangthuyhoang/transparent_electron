@@ -38,6 +38,14 @@ app.on("ready", () => {
     height: 600
   });
 
+  const childWindow = createWindow("child", {
+    width: 800,
+    height: 400,
+    transparent: true
+  })
+
+  // childWindow.setAlwaysOnTop(true)
+
   mainWindow.loadURL(
     url.format({
       pathname: path.join(__dirname, "app.html"),
@@ -45,6 +53,14 @@ app.on("ready", () => {
       slashes: true
     })
   );
+
+  childWindow.loadURL(
+    url.format({
+      pathname: path.join(__dirname, "child-app.html"),
+      protocol: "file:",
+      slashes: true
+    })
+  )
 
   if (env.name === "development") {
     mainWindow.openDevTools();
