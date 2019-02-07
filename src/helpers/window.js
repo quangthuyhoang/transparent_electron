@@ -15,6 +15,7 @@ export default (name, options) => {
   };
   let state = {};
   let win;
+  let childWindow;
 
   const restore = () => {
     let restoredState = {};
@@ -74,8 +75,8 @@ export default (name, options) => {
     userDataDir.write(stateStoreFile, state, { atomic: true });
   };
 
-  state = ensureVisibleOnSomeDisplay(restore());
-
+  // state = ensureVisibleOnSomeDisplay(restore());
+  console.log("this was called dright beforew browser window ");
   win = new BrowserWindow(Object.assign({}, options, state));
 
   win.on("close", saveState);

@@ -11,6 +11,13 @@ export const devMenuTemplate = {
       }
     },
     {
+      label: "Transparent",
+      accelerator: "Alt+CmdOrCtrl+T",
+      click: () => {
+        console.log("hey")
+      }
+    },
+    {
       label: "Toggle DevTools",
       accelerator: "Alt+CmdOrCtrl+I",
       click: () => {
