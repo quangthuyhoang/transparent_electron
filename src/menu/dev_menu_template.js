@@ -18,10 +18,14 @@ export const devMenuTemplate = {
       }
     },
     {
-      label: "Transparent",
+      label: "Restart",
       accelerator: "Alt+mdOrCtrl+T",
       click: () => {
         console.log("hey")
+        app.relaunch();
+        app.exit();
+        // app.relaunch();
+        // app.exit();
       }
     },
     {

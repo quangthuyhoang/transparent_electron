@@ -12,6 +12,7 @@ body {
   align-items: center;
   font-family: sans-serif;
   color: #525252;
+  position: relative;
 }
 
 a {
@@ -21,4 +22,36 @@ a {
 
 .container {
   text-align: center;
+}
+
+.bVis {
+  border: 1px solid red;
+}
+
+.b-black {
+  border: 1px solid black;
+}
+
+.hw100 {
+  height: 100%;
+  width: 100%;
+}
+
+.m0 {
+  margin: 0 auto;
+}
+
+/* Overlay */
+.header_overlay {
+  position: absolute;
+  margin-top: 5px;
+  width: 100%;
+  height: 10em;
+}
+
+.cir {
+  border-radius: 50%;
+  border: 10px solid yellow;
+  height: 50px;
+  width: 50px;
 }
