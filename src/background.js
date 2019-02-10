@@ -35,9 +35,14 @@ app.on("ready", () => {
   setApplicationMenu();
 
   const mainWindow = createWindow("main", {
-    width: 1200,
+    width: 400,
     height: 400,
     transparent: true,
+    resizable: true,
+    movable: true,
+    focusable: false,
+    alwaysOnTop: true,
+    show: false
   });
 
   // const childWindow = createWindow("child", {
@@ -73,14 +78,20 @@ app.on("ready", () => {
   if (mainWindow.isMaximized != false) {
     mainWindow.maximize();
   } 
+  if (!mainWindow.isVisible()) {
+    app.dock.hide();
+    mainWindow.showInactive();
+
+    // And also hide it after a while
+    setTimeout(() => {
+    //   // mainWindow.hide();
+      app.dock.show();
+    }, 1000);
+  }
   if (env.name === "development") {
     // mainWindow.openDevTools();
-
   }
 });
-
-// app.relaunch({ args: process.argv.slice(1).concat(['--relaunch']) })
-// app.exit(0)
 
 app.on("window-all-closed", () => {
   app.quit();
