@@ -17,6 +17,7 @@ import env from "env";
 const setApplicationMenu = () => {
   const menus = [editMenuTemplate];
   if (env.name !== "production") {
+    
     menus.push(devMenuTemplate);
   }
   Menu.setApplicationMenu(Menu.buildFromTemplate(menus));
@@ -34,15 +35,28 @@ app.on("ready", () => {
   setApplicationMenu();
 
   const mainWindow = createWindow("main", {
-    width: 1000,
-    height: 600
+    width: 400,
+    height: 400,
+    transparent: true,
+    resizable: true,
+    movable: true,
+    focusable: false,
+    alwaysOnTop: true,
+    show: false
   });
 
-  const childWindow = createWindow("child", {
-    width: 800,
-    height: 400,
-    transparent: true
-  })
+  // const childWindow = createWindow("child", {
+  //   width: 800,
+  //   height: 400,
+  //   parent: mainWindow,
+    // modal: true,
+    // frame: true
+  // })
+
+  // mainWindow.setIgnoreMouseEvents(true)
+  mainWindow.setAlwaysOnTop(true, "floating");
+  mainWindow.setVisibleOnAllWorkspaces(true);
+  mainWindow.setFullScreenable(false);
 
   // childWindow.setAlwaysOnTop(true)
 
@@ -54,19 +68,33 @@ app.on("ready", () => {
     })
   );
 
-  childWindow.loadURL(
-    url.format({
-      pathname: path.join(__dirname, "child-app.html"),
-      protocol: "file:",
-      slashes: true
-    })
-  )
+  // childWindow.loadURL(
+  //   url.format({
+  //     pathname: path.join(__dirname, "child-app.html"),
+  //     protocol: "file:",
+  //     slashes: true
+  //   })
+  // )
+  if (mainWindow.isMaximized != false) {
+    mainWindow.maximize();
+  } 
+  if (!mainWindow.isVisible()) {
+    app.dock.hide();
+    mainWindow.showInactive();
 
+    // And also hide it after a while
+    setTimeout(() => {
+    //   // mainWindow.hide();
+      app.dock.show();
+    }, 1000);
+  }
   if (env.name === "development") {
-    mainWindow.openDevTools();
+    // mainWindow.openDevTools();
   }
 });
 
 app.on("window-all-closed", () => {
   app.quit();
 });
+
+// app.dock.hide();

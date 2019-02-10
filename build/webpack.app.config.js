@@ -6,7 +6,8 @@ module.exports = env => {
   return merge(base(env), {
     entry: {
       background: "./src/background.js",
-      app: "./src/app.js"
+      app: "./src/app.js",
+      draggable: "./src/draggable.js"
     },
     output: {
       filename: "[name].js",

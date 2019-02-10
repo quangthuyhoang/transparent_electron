@@ -1,4 +1,9 @@
 import { app, BrowserWindow } from "electron";
+import { exec } from 'child_process';
+
+const execute = (command, callback) => {
+    exec(command, (error, stdout, stderr) => { callback(stdout); });
+};
 
 export const devMenuTemplate = {
   label: "Development",
@@ -11,10 +16,20 @@ export const devMenuTemplate = {
       }
     },
     {
-      label: "Transparent",
+      label: "Maximize Window",
+      accelerator: "Alt+CmdOrCtrl+O",
+      click: () => {
+        console.log("maximize window in node");
+      }
+    },
+    {
+      label: "Restart",
       accelerator: "Alt+CmdOrCtrl+T",
       click: () => {
-        console.log("hey")
+        app.exit()
+        execute("npm start", function(stdout) {
+          console.log(stdout);
+        })
       }
     },
     {
