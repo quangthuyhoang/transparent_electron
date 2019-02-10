@@ -31,34 +31,43 @@ if (env.name !== "production") {
   app.setPath("userData", `${userDataPath} (${env.name})`);
 }
 
+// WindowOS show app icon on taskbar
+// TODOS: be able to change icon
+// const icon = "../resources/icon.ico" || process.execPath;
+// console.log("icon path:",icon);
+app.setUserTasks([
+  {
+    program: process.execPath,
+    arguments: '--new-window',
+    iconPath: process.execPath,
+    iconIndex: 0,
+    title: 'New Window',
+    description: 'Create a new window'
+  }
+])
+
 app.on("ready", () => {
   setApplicationMenu();
 
+  // TODOS: get transparency to work on windows
   const mainWindow = createWindow("main", {
     width: 400,
     height: 400,
     transparent: true,
-    // resizable: true,
-    // movable: true,
+    resizable: true,
+    movable: true,
     // focusable: false,
     // alwaysOnTop: true,
-    // show: false
+    // show: false,
+    // frame: true
   });
 
-  // const childWindow = createWindow("child", {
-  //   width: 800,
-  //   height: 400,
-  //   parent: mainWindow,
-  //   modal: true,
-  //   frame: true
-  // })
+  // mainWindow.setOverlayIcon('../resources/icon.ico', 'Description for overlay')
 
   // mainWindow.setIgnoreMouseEvents(true)
   // mainWindow.setAlwaysOnTop(true, "floating");
   // mainWindow.setVisibleOnAllWorkspaces(true);
-  // mainWindow.setFullScreenable(false);
-
-  // childWindow.setAlwaysOnTop(true)
+  mainWindow.setFullScreenable(true);
 
   mainWindow.loadURL(
     url.format({
@@ -68,6 +77,15 @@ app.on("ready", () => {
     })
   );
 
+ // const childWindow = createWindow("child", {
+  //   width: 800,
+  //   height: 400,
+  //   parent: mainWindow,
+  //   modal: true,
+  //   frame: true,
+  //   transparent: true,
+  // })
+// childWindow.setAlwaysOnTop(true)
   // childWindow.loadURL(
   //   url.format({
   //     pathname: path.join(__dirname, "child-app.html"),
@@ -81,6 +99,7 @@ app.on("ready", () => {
   if (!mainWindow.isVisible()) {
     console.log("platform:", process.platform)
     // Check OS
+  
     if(process.platform == "darwin") {
       app.dock.hide();
       mainWindow.showInactive();
@@ -100,5 +119,3 @@ app.on("ready", () => {
 app.on("window-all-closed", () => {
   app.quit();
 });
-
-// app.dock.hide();
