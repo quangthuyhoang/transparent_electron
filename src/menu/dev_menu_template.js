@@ -1,4 +1,9 @@
 import { app, BrowserWindow } from "electron";
+import { exec } from 'child_process';
+
+const execute = (command, callback) => {
+    exec(command, (error, stdout, stderr) => { callback(stdout); });
+};
 
 export const devMenuTemplate = {
   label: "Development",
@@ -19,13 +24,12 @@ export const devMenuTemplate = {
     },
     {
       label: "Restart",
-      accelerator: "Alt+mdOrCtrl+T",
+      accelerator: "Alt+CmdOrCtrl+T",
       click: () => {
-        console.log("hey")
-        app.relaunch();
-        app.exit();
-        // app.relaunch();
-        // app.exit();
+        app.exit()
+        execute("npm start", function(stdout) {
+          console.log(stdout);
+        })
       }
     },
     {
