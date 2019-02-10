@@ -38,25 +38,25 @@ app.on("ready", () => {
     width: 400,
     height: 400,
     transparent: true,
-    resizable: true,
-    movable: true,
-    focusable: false,
-    alwaysOnTop: true,
-    show: false
+    // resizable: true,
+    // movable: true,
+    // focusable: false,
+    // alwaysOnTop: true,
+    // show: false
   });
 
   // const childWindow = createWindow("child", {
   //   width: 800,
   //   height: 400,
   //   parent: mainWindow,
-    // modal: true,
-    // frame: true
+  //   modal: true,
+  //   frame: true
   // })
 
   // mainWindow.setIgnoreMouseEvents(true)
-  mainWindow.setAlwaysOnTop(true, "floating");
-  mainWindow.setVisibleOnAllWorkspaces(true);
-  mainWindow.setFullScreenable(false);
+  // mainWindow.setAlwaysOnTop(true, "floating");
+  // mainWindow.setVisibleOnAllWorkspaces(true);
+  // mainWindow.setFullScreenable(false);
 
   // childWindow.setAlwaysOnTop(true)
 
@@ -79,14 +79,18 @@ app.on("ready", () => {
     mainWindow.maximize();
   } 
   if (!mainWindow.isVisible()) {
-    app.dock.hide();
-    mainWindow.showInactive();
-
-    // And also hide it after a while
-    setTimeout(() => {
-    //   // mainWindow.hide();
-      app.dock.show();
-    }, 1000);
+    console.log("platform:", process.platform)
+    // Check OS
+    if(process.platform == "darwin") {
+      app.dock.hide();
+      mainWindow.showInactive();
+  
+      // And also hide it after a while
+      setTimeout(() => {
+      //   // mainWindow.hide();
+        app.dock.show();
+      }, 1000);
+    }
   }
   if (env.name === "development") {
     // mainWindow.openDevTools();

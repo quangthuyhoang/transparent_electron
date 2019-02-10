@@ -5,6 +5,25 @@ const execute = (command, callback) => {
     exec(command, (error, stdout, stderr) => { callback(stdout); });
 };
 
+const osCommandsOn = {
+  darwin: {
+    restart: () => {
+      console.log("macOS")
+        app.exit();
+        execute("npm start", function(stdout) {
+          console.log(stdout);
+        })
+    }
+  },
+  win32: {
+    restart: () => {
+      console.log("win32")
+        app.relaunch();
+        app.exit();
+    }
+  }
+}
+
 export const devMenuTemplate = {
   label: "Development",
   submenu: [
@@ -26,8 +45,21 @@ export const devMenuTemplate = {
       label: "Restart",
       accelerator: "Alt+CmdOrCtrl+T",
       click: () => {
-        app.exit()
-        execute("npm start", function(stdout) {
+        console.log("platform", process.platform);
+        osCommandsOn[process.platform].restart();
+        // app.exit();
+        // execute("npm start", function(stdout) {
+        //   console.log(stdout);
+        // })
+      }
+    },
+    {
+      label: "Test",
+      accelerator: "CmdOrCtrl+T",
+      click: () => {
+        app.relaunch();
+        app.exit();
+        execute("echo $JAVA_HOME", function(stdout) {
           console.log(stdout);
         })
       }
